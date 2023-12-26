@@ -33,7 +33,7 @@ This repository contains an R port of the Python pathlib module.
 - [x] [pathlib.Path.readlink](https://docs.python.org/3/library/pathlib.html#pathlib.Path.readlink)
 - [x] [pathlib.Path.rename](https://docs.python.org/3/library/pathlib.html#pathlib.Path.rename)
 - [ ] [pathlib.Path.replace](https://docs.python.org/3/library/pathlib.html#pathlib.Path.replace)
-- [ ] [pathlib.Path.resolve](https://docs.python.org/3/library/pathlib.html#pathlib.Path.resolve)
+- [x] [pathlib.Path.resolve](https://docs.python.org/3/library/pathlib.html#pathlib.Path.resolve)
 - [ ] [pathlib.Path.rglob](https://docs.python.org/3/library/pathlib.html#pathlib.Path.rglob)
 - [x] [pathlib.Path.rmdir](https://docs.python.org/3/library/pathlib.html#pathlib.Path.rmdir)
 - [ ] [pathlib.Path.samefile](https://docs.python.org/3/library/pathlib.html#pathlib.Path.samefile)
