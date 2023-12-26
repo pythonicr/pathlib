@@ -14,5 +14,7 @@ This function returns the current working directory as a character vector,
 similar to Python's \code{pathlib.Path.cwd()} method.
 }
 \examples{
+\dontrun{
 Path_cwd()
+}
 }

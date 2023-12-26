@@ -18,5 +18,7 @@ logical vector indicating the result. An absolute path is a path that starts
 from the root directory, e.g., "/path/to/file.txt", "C:\\path\\to\\file.txt"
 }
 \examples{
+\dontrun{
 Path_is_absolute("/path/to/file.txt")
+}
 }

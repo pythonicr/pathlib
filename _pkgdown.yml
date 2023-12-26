@@ -1,0 +1,6 @@
+url: https://pythonicr.github.io/pathlib/
+template:
+  bootstrap: 5
+  package: pythonicrtemplate
+development:
+  mode: auto

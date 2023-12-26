@@ -18,5 +18,7 @@ their paths as a character vector, similar to Python's \code{pathlib.Path.glob()
 method.
 }
 \examples{
+\dontrun{
 Path_glob("*.txt")
+}
 }

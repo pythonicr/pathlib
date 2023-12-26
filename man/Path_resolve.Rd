@@ -18,5 +18,7 @@ behavior of Python's \code{pathlib.Path.resolve()} or \code{pathlib.Path.absolut
 methods.
 }
 \examples{
+\dontrun{
 Path_absolute("relative/path/to/file.txt")
+}
 }

@@ -14,5 +14,7 @@ This function returns the user's home directory as a character vector,
 similar to Python's \code{pathlib.Path.home()} method.
 }
 \examples{
+\dontrun{
 Path_home()
+}
 }

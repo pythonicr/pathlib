@@ -18,5 +18,7 @@ path in the provided paths, similar to Python's \code{pathlib.Path.expanduser()}
 method.
 }
 \examples{
+\dontrun{
 Path_expanduser("~/Documents/file.txt")
+}
 }

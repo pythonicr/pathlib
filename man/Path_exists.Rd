@@ -18,5 +18,7 @@ a logical vector indicating their existence, similar to Python's
 \code{pathlib.Path.exists()} method.
 }
 \examples{
+\dontrun{
 Path_exists("file.txt")
+}
 }

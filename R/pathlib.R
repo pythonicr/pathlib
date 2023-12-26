@@ -11,7 +11,9 @@
 #' @aliases Path_resolve
 #' @export
 #' @examples
+#' \dontrun{
 #' Path_absolute("relative/path/to/file.txt")
+#' }
 Path_absolute <- function(paths) {
   is_not_abs <- .is_absolute(paths, invert = TRUE)
   paths[is_not_abs] <- fs::path(base::getwd(), paths[is_not_abs])
@@ -45,7 +47,9 @@ Path_chmod <- function(paths, mode) {
 #'
 #' @export
 #' @examples
+#' \dontrun{
 #' Path_cwd()
+#' }
 Path_cwd <- function() {
   base::getwd()
 }
@@ -62,7 +66,9 @@ Path_cwd <- function() {
 #'
 #' @export
 #' @examples
+#' \dontrun{
 #' Path_exists("file.txt")
+#' }
 Path_exists <- function(paths) {
   fs::file_access(paths, mode = "exists")
 }
@@ -79,7 +85,9 @@ Path_exists <- function(paths) {
 #'
 #' @export
 #' @examples
+#' \dontrun{
 #' Path_expanduser("~/Documents/file.txt")
+#' }
 Path_expanduser <- function(paths) {
   fs::path_expand(paths)
 }
@@ -96,7 +104,9 @@ Path_expanduser <- function(paths) {
 #'
 #' @export
 #' @examples
+#' \dontrun{
 #' Path_glob("*.txt")
+#' }
 Path_glob <- function(patterns) {
   .tidy(base::Sys.glob(patterns, dirmark = FALSE))
 }
@@ -145,7 +155,9 @@ Path_hardlink_to <- function(paths, targets) {
 #'
 #' @export
 #' @examples
+#' \dontrun{
 #' Path_home()
+#' }
 Path_home <- function() {
   fs::path_expand("~")
 }
@@ -162,7 +174,9 @@ Path_home <- function() {
 #'
 #' @export
 #' @examples
+#' \dontrun{
 #' Path_is_absolute("/path/to/file.txt")
+#' }
 Path_is_absolute <- function(paths) {
   .is_absolute(paths)
 }

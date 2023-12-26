@@ -1,5 +1,9 @@
 .is_absolute <- function(paths, invert = FALSE) {
-  base::grepl("^(/+|[A-Za-z]:)", .tidy(paths), invert = invert)
+  if (isTRUE(invert)) {
+    !base::grep("^(/+|[A-Za-z]:)", .tidy(paths))
+  } else {
+    base::grep("^(/+|[A-Za-z]:)", .tidy(paths))
+  }
 }
 
 .test_type <- function(paths, type_name) {
