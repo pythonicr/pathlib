@@ -1,46 +1,436 @@
-# pathlib
 
-This repository contains an R port of the Python pathlib module.
+<!-- README.md is generated from README.Rmd. Please edit that file -->
 
-## Todo
+# pathlib: Filesystem Path Operations in R
 
-- [x] [pathlib.Path.absolute](https://docs.python.org/3/library/pathlib.html#pathlib.Path.absolute)
-- [x] [pathlib.Path.chmod](https://docs.python.org/3/library/pathlib.html#pathlib.Path.chmod)
-- [x] [pathlib.Path.cwd](https://docs.python.org/3/library/pathlib.html#pathlib.Path.cwd)
-- [x] [pathlib.Path.exists](https://docs.python.org/3/library/pathlib.html#pathlib.Path.exists)
-- [x] [pathlib.Path.expanduser](https://docs.python.org/3/library/pathlib.html#pathlib.Path.expanduser)
-- [x] [pathlib.Path.glob](https://docs.python.org/3/library/pathlib.html#pathlib.Path.glob)
-- [x] [pathlib.Path.group](https://docs.python.org/3/library/pathlib.html#pathlib.Path.group)
-- [x] [pathlib.Path.hardlink_to](https://docs.python.org/3/library/pathlib.html#pathlib.Path.hardlink_to)
-- [x] [pathlib.Path.home](https://docs.python.org/3/library/pathlib.html#pathlib.Path.home)
-- [x] [pathlib.Path.is_block_device](https://docs.python.org/3/library/pathlib.html#pathlib.Path.is_block_device)
-- [x] [pathlib.Path.is_char_device](https://docs.python.org/3/library/pathlib.html#pathlib.Path.is_char_device)
-- [x] [pathlib.Path.is_dir](https://docs.python.org/3/library/pathlib.html#pathlib.Path.is_dir)
-- [x] [pathlib.Path.is_fifo](https://docs.python.org/3/library/pathlib.html#pathlib.Path.is_fifo)
-- [x] [pathlib.Path.is_file](https://docs.python.org/3/library/pathlib.html#pathlib.Path.is_file)
-- [ ] [pathlib.Path.is_junction](https://docs.python.org/3/library/pathlib.html#pathlib.Path.is_junction)
-- [ ] [pathlib.Path.is_mount](https://docs.python.org/3/library/pathlib.html#pathlib.Path.is_mount)
-- [x] [pathlib.Path.is_socket](https://docs.python.org/3/library/pathlib.html#pathlib.Path.is_socket)
-- [x] [pathlib.Path.is_symlink](https://docs.python.org/3/library/pathlib.html#pathlib.Path.is_symlink)
-- [ ] [pathlib.Path.iterdir](https://docs.python.org/3/library/pathlib.html#pathlib.Path.iterdir)
-- [ ] [pathlib.Path.lchmod](https://docs.python.org/3/library/pathlib.html#pathlib.Path.lchmod)
-- [x] [pathlib.Path.lstat](https://docs.python.org/3/library/pathlib.html#pathlib.Path.lstat)
-- [x] [pathlib.Path.mkdir](https://docs.python.org/3/library/pathlib.html#pathlib.Path.mkdir)
-- [ ] [pathlib.Path.open](https://docs.python.org/3/library/pathlib.html#pathlib.Path.open)
-- [x] [pathlib.Path.owner](https://docs.python.org/3/library/pathlib.html#pathlib.Path.owner)
-- [ ] [pathlib.Path.read_bytes](https://docs.python.org/3/library/pathlib.html#pathlib.Path.read_bytes)
-- [x] [pathlib.Path.read_text](https://docs.python.org/3/library/pathlib.html#pathlib.Path.read_text)
-- [x] [pathlib.Path.readlink](https://docs.python.org/3/library/pathlib.html#pathlib.Path.readlink)
-- [x] [pathlib.Path.rename](https://docs.python.org/3/library/pathlib.html#pathlib.Path.rename)
-- [ ] [pathlib.Path.replace](https://docs.python.org/3/library/pathlib.html#pathlib.Path.replace)
-- [x] [pathlib.Path.resolve](https://docs.python.org/3/library/pathlib.html#pathlib.Path.resolve)
-- [ ] [pathlib.Path.rglob](https://docs.python.org/3/library/pathlib.html#pathlib.Path.rglob)
-- [x] [pathlib.Path.rmdir](https://docs.python.org/3/library/pathlib.html#pathlib.Path.rmdir)
-- [ ] [pathlib.Path.samefile](https://docs.python.org/3/library/pathlib.html#pathlib.Path.samefile)
-- [x] [pathlib.Path.stat](https://docs.python.org/3/library/pathlib.html#pathlib.Path.stat)
-- [x] [pathlib.Path.symlink_to](https://docs.python.org/3/library/pathlib.html#pathlib.Path.symlink_to)
-- [x] [pathlib.Path.touch](https://docs.python.org/3/library/pathlib.html#pathlib.Path.touch)
-- [x] [pathlib.Path.unlink](https://docs.python.org/3/library/pathlib.html#pathlib.Path.unlink)
-- [ ] [pathlib.Path.walk](https://docs.python.org/3/library/pathlib.html#pathlib.Path.walk)
-- [ ] [pathlib.Path.write_bytes](https://docs.python.org/3/library/pathlib.html#pathlib.Path.write_bytes)
-- [x] [pathlib.Path.write_text](https://docs.python.org/3/library/pathlib.html#pathlib.Path.write_text)
+## Overview
+
+**pathlib** is an R package that provides a comprehensive set of
+functions for performing filesystem path operations, inspired by
+Python’s `pathlib` module. This package aims to make path manipulations
+in R intuitive and accessible, especially for users familiar with
+Python’s `pathlib` methods. The functions in **pathlib** leverage the
+`fs` and `checkmate` packages to ensure efficient and reliable path
+operations.
+
+## Installation
+
+You can install the `pathlib` package directly from GitHub.
+
+``` r
+# Install devtools if you haven't already
+install.packages("devtools")
+
+# Install pathlib package from GitHub
+devtools::install_github("pythonicr/pathlib")
+```
+
+## Getting Started
+
+### Basic Usage
+
+Here are some examples demonstrating how to use the functions provided
+by the **pathlib** package.
+
+#### Get the Absolute Path
+
+The `Path_absolute` function returns the absolute path of the input
+path, similar to Python’s `pathlib.Path.resolve()` or
+`pathlib.Path.absolute()` methods.
+
+``` r
+library(pathlib)
+
+# Get the absolute path
+abs_path <- Path_absolute("relative/path/to/file.txt")
+print(abs_path)
+```
+
+#### Change the Mode (Permissions) of a File or Directory
+
+The `Path_chmod` function changes the mode (permissions) of the
+specified file or directory.
+
+``` r
+# Change file permissions
+Path_chmod("file.txt", "755")
+```
+
+#### Get the Current Working Directory
+
+The `Path_cwd` function returns the current working directory, similar
+to Python’s `pathlib.Path.cwd()` method.
+
+``` r
+# Get the current working directory
+current_dir <- Path_cwd()
+print(current_dir)
+```
+
+#### Check if Paths Exist
+
+The `Path_exists` function checks if the specified files or directories
+exist.
+
+``` r
+# Check if paths exist
+exists <- Path_exists("file.txt")
+print(exists)
+```
+
+#### Expand the Tilde (~) in File Paths
+
+The `Path_expanduser` function replaces the tilde (~) character with the
+user’s home directory path.
+
+``` r
+# Expand tilde in paths
+expanded_path <- Path_expanduser("~/Documents/file.txt")
+print(expanded_path)
+```
+
+#### Glob for Files Matching a Pattern
+
+The `Path_glob` function searches for files matching the specified
+patterns and returns their paths.
+
+``` r
+# Glob for files
+files <- Path_glob("*.txt")
+print(files)
+```
+
+#### Get the Group Owner of Files or Directories
+
+The `Path_group` function returns the group owner of the provided paths.
+
+``` r
+# Get group owner of files
+group_owner <- Path_group("file.txt")
+print(group_owner)
+```
+
+#### Create Hard Links
+
+The `Path_hardlink_to` function creates hard links from the specified
+paths to the target paths.
+
+``` r
+# Create hard link
+Path_hardlink_to("file.txt", "hardlink.txt")
+```
+
+#### Get the User’s Home Directory
+
+The `Path_home` function returns the user’s home directory.
+
+``` r
+# Get home directory
+home_dir <- Path_home()
+print(home_dir)
+```
+
+#### Check if Paths are Absolute
+
+The `Path_is_absolute` function checks if the specified paths are
+absolute paths.
+
+``` r
+# Check if paths are absolute
+is_abs <- Path_is_absolute("/path/to/file.txt")
+print(is_abs)
+```
+
+#### Check if Paths are Block Devices
+
+The `Path_is_block_device` function checks if the specified paths are
+block devices.
+
+``` r
+# Check if paths are block devices
+is_block_device <- Path_is_block_device("file.txt")
+print(is_block_device)
+```
+
+#### Check if Paths are Character Devices
+
+The `Path_is_char_device` function checks if the specified paths are
+character devices.
+
+``` r
+# Check if paths are character devices
+is_char_device <- Path_is_char_device("file.txt")
+print(is_char_device)
+```
+
+#### Check if Paths are Directories
+
+The `Path_is_dir` function checks if the specified paths are
+directories.
+
+``` r
+# Check if paths are directories
+is_dir <- Path_is_dir("directory")
+print(is_dir)
+```
+
+#### Check if Paths are FIFOs (Named Pipes)
+
+The `Path_is_fifo` function checks if the specified paths are FIFOs
+(named pipes).
+
+``` r
+# Check if paths are FIFOs
+is_fifo <- Path_is_fifo("fifo_pipe")
+print(is_fifo)
+```
+
+#### Check if Paths are Regular Files
+
+The `Path_is_file` function checks if the specified paths are regular
+files.
+
+``` r
+# Check if paths are files
+is_file <- Path_is_file("file.txt")
+print(is_file)
+```
+
+#### Check if Paths are Sockets
+
+The `Path_is_socket` function checks if the specified paths are sockets.
+
+``` r
+# Check if paths are sockets
+is_socket <- Path_is_socket("socket_file")
+print(is_socket)
+```
+
+#### Check if Paths are Symbolic Links
+
+The `Path_is_symlink` function checks if the specified paths are
+symbolic links.
+
+``` r
+# Check if paths are symbolic links
+is_symlink <- Path_is_symlink("symbolic_link")
+print(is_symlink)
+```
+
+#### Get File Information Without Following Symbolic Links
+
+The `Path_lstat` function retrieves file information for the provided
+paths without following symbolic links.
+
+``` r
+# Get file information without following symbolic links
+file_info <- Path_lstat("file.txt")
+print(file_info)
+```
+
+#### Create Directories
+
+The `Path_mkdir` function creates directories at the specified paths. If
+the `parents` argument is set to TRUE, it creates parent directories as
+needed.
+
+``` r
+# Create directory
+Path_mkdir("new_directory")
+```
+
+#### Get the Owner of Files or Directories
+
+The `Path_owner` function returns the owner of the provided paths.
+
+``` r
+# Get owner of files
+owner <- Path_owner("file.txt")
+print(owner)
+```
+
+#### Read the Content of a File as Text
+
+The `Path_read_text` function reads the content of a file at the
+specified path as text.
+
+``` r
+# Read text from file
+text_content <- Path_read_text("file.txt", encoding = "UTF-8")
+print(text_content)
+```
+
+#### Get the Target Path of a Symbolic Link
+
+The `Path_readlink` function returns the target path of the specified
+symbolic links.
+
+``` r
+# Get target path of symbolic link
+target_path <- Path_readlink("symbolic_link")
+print(target_path)
+```
+
+#### Rename Files or Directories
+
+The `Path_rename` function renames files or directories from their
+current paths to new paths.
+
+``` r
+# Rename file
+Path_rename("old_file.txt", "new_file.txt")
+```
+
+#### Remove Directories
+
+The `Path_rmdir` function removes directories at the specified paths.
+
+``` r
+# Remove directory
+Path_rmdir("empty_directory")
+```
+
+#### Get File Information
+
+The `Path_stat` function retrieves file information for the provided
+paths, allowing an optional argument `follow_symlinks` to specify
+whether symbolic links should be followed when obtaining file
+information.
+
+``` r
+# Get file information
+file_info <- Path_stat("file.txt", follow_symlinks = TRUE)
+print(file_info)
+```
+
+#### Create Symbolic Links
+
+The `Path_symlink_to` function creates symbolic links from the specified
+paths to the target paths.
+
+``` r
+# Create symbolic link
+Path_symlink_to("source_file.txt", "target_file.txt")
+```
+
+#### Touch Files
+
+The `Path_touch` function creates the files if they do not exist and
+updates the access and modification times if they do exist.
+
+``` r
+# Touch file
+Path_touch("file.txt")
+```
+
+#### Unlink (Delete) Files
+
+The `Path_unlink` function unlinks (deletes) files at the specified
+paths.
+
+``` r
+# Unlink file
+Path_unlink("file.txt")
+```
+
+#### Write Text to a File
+
+The `Path_write_text` function writes the provided text to a file at the
+specified path.
+
+``` r
+# Write text to file
+Path_write_text("file.txt", "Hello, World!")
+```
+
+## Contributing
+
+We welcome contributions to the **pathlib** package. If you have
+suggestions, bug reports, or want to contribute code, please open an
+issue or submit a pull request on our GitHub repository.
+
+- [x]
+  [pathlib.Path.absolute](https://docs.python.org/3/library/pathlib.html#pathlib.Path.absolute)
+- [x]
+  [pathlib.Path.chmod](https://docs.python.org/3/library/pathlib.html#pathlib.Path.chmod)
+- [x]
+  [pathlib.Path.cwd](https://docs.python.org/3/library/pathlib.html#pathlib.Path.cwd)
+- [x]
+  [pathlib.Path.exists](https://docs.python.org/3/library/pathlib.html#pathlib.Path.exists)
+- [x]
+  [pathlib.Path.expanduser](https://docs.python.org/3/library/pathlib.html#pathlib.Path.expanduser)
+- [x]
+  [pathlib.Path.glob](https://docs.python.org/3/library/pathlib.html#pathlib.Path.glob)
+- [x]
+  [pathlib.Path.group](https://docs.python.org/3/library/pathlib.html#pathlib.Path.group)
+- [x]
+  [pathlib.Path.hardlink_to](https://docs.python.org/3/library/pathlib.html#pathlib.Path.hardlink_to)
+- [x]
+  [pathlib.Path.home](https://docs.python.org/3/library/pathlib.html#pathlib.Path.home)
+- [x]
+  [pathlib.Path.is_block_device](https://docs.python.org/3/library/pathlib.html#pathlib.Path.is_block_device)
+- [x]
+  [pathlib.Path.is_char_device](https://docs.python.org/3/library/pathlib.html#pathlib.Path.is_char_device)
+- [x]
+  [pathlib.Path.is_dir](https://docs.python.org/3/library/pathlib.html#pathlib.Path.is_dir)
+- [x]
+  [pathlib.Path.is_fifo](https://docs.python.org/3/library/pathlib.html#pathlib.Path.is_fifo)
+- [x]
+  [pathlib.Path.is_file](https://docs.python.org/3/library/pathlib.html#pathlib.Path.is_file)
+- [ ]
+  [pathlib.Path.is_junction](https://docs.python.org/3/library/pathlib.html#pathlib.Path.is_junction)
+- [ ]
+  [pathlib.Path.is_mount](https://docs.python.org/3/library/pathlib.html#pathlib.Path.is_mount)
+- [x]
+  [pathlib.Path.is_socket](https://docs.python.org/3/library/pathlib.html#pathlib.Path.is_socket)
+- [x]
+  [pathlib.Path.is_symlink](https://docs.python.org/3/library/pathlib.html#pathlib.Path.is_symlink)
+- [ ]
+  [pathlib.Path.iterdir](https://docs.python.org/3/library/pathlib.html#pathlib.Path.iterdir)
+- [ ]
+  [pathlib.Path.lchmod](https://docs.python.org/3/library/pathlib.html#pathlib.Path.lchmod)
+- [x]
+  [pathlib.Path.lstat](https://docs.python.org/3/library/pathlib.html#pathlib.Path.lstat)
+- [x]
+  [pathlib.Path.mkdir](https://docs.python.org/3/library/pathlib.html#pathlib.Path.mkdir)
+- [ ]
+  [pathlib.Path.open](https://docs.python.org/3/library/pathlib.html#pathlib.Path.open)
+- [x]
+  [pathlib.Path.owner](https://docs.python.org/3/library/pathlib.html#pathlib.Path.owner)
+- [ ]
+  [pathlib.Path.read_bytes](https://docs.python.org/3/library/pathlib.html#pathlib.Path.read_bytes)
+- [x]
+  [pathlib.Path.read_text](https://docs.python.org/3/library/pathlib.html#pathlib.Path.read_text)
+- [x]
+  [pathlib.Path.readlink](https://docs.python.org/3/library/pathlib.html#pathlib.Path.readlink)
+- [x]
+  [pathlib.Path.rename](https://docs.python.org/3/library/pathlib.html#pathlib.Path.rename)
+- [ ]
+  [pathlib.Path.replace](https://docs.python.org/3/library/pathlib.html#pathlib.Path.replace)
+- [x]
+  [pathlib.Path.resolve](https://docs.python.org/3/library/pathlib.html#pathlib.Path.resolve)
+- [ ]
+  [pathlib.Path.rglob](https://docs.python.org/3/library/pathlib.html#pathlib.Path.rglob)
+- [x]
+  [pathlib.Path.rmdir](https://docs.python.org/3/library/pathlib.html#pathlib.Path.rmdir)
+- [ ]
+  [pathlib.Path.samefile](https://docs.python.org/3/library/pathlib.html#pathlib.Path.samefile)
+- [x]
+  [pathlib.Path.stat](https://docs.python.org/3/library/pathlib.html#pathlib.Path.stat)
+- [x]
+  [pathlib.Path.symlink_to](https://docs.python.org/3/library/pathlib.html#pathlib.Path.symlink_to)
+- [x]
+  [pathlib.Path.touch](https://docs.python.org/3/library/pathlib.html#pathlib.Path.touch)
+- [x]
+  [pathlib.Path.unlink](https://docs.python.org/3/library/pathlib.html#pathlib.Path.unlink)
+- [ ]
+  [pathlib.Path.walk](https://docs.python.org/3/library/pathlib.html#pathlib.Path.walk)
+- [ ]
+  [pathlib.Path.write_bytes](https://docs.python.org/3/library/pathlib.html#pathlib.Path.write_bytes)
+- [x]
+  [pathlib.Path.write_text](https://docs.python.org/3/library/pathlib.html#pathlib.Path.write_text)
+
+## License
+
+**pathlib** is released under the MIT License. See the LICENSE file in
+the package’s repository for more details.
